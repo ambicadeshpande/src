@@ -45,7 +45,7 @@ public class Factorial {
     }
 
     @Test
-    public void factorialForAnyLessThan20() {
+    public void factorialForAnyNumLessThan0() {
         long num = -10;
         Exception exception = assertThrows(RuntimeException.class, () -> {
             factorialUsingRecursion(num);
@@ -53,11 +53,11 @@ public class Factorial {
         String expectedMessage = "Underflow error in factorial";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
-        System.out.println("factorialForAnyLessThan20 - passed");
+        System.out.println("factorialForAnyNumLessThan0 - passed");
     }
 
     @Test
-    public void factorialForAnyGreaterThan20() {
+    public void factorialForAnyNumGreaterThan20() {
         long num = 22;
         Exception exception = assertThrows(RuntimeException.class, () -> {
             factorialUsingRecursion(num);
@@ -65,7 +65,7 @@ public class Factorial {
         String expectedMessage = "Overflow error in factorial";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
-        System.out.println("factorialForAnyGreaterThan20 - passed");
+        System.out.println("factorialForAnyNumGreaterThan20 - passed");
     }
 
     public static void main(String[] args) {
