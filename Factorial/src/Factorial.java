@@ -4,20 +4,13 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import static org.junit.jupiter.api.Assertions.*;
 
-/* Reads an integer and prints n! = 1 * 2 * ... * n to standard output
-   For eg: 0! = 1, 1! = 1, 2! = 2 * 1 = 2, 3! = 3 * 2 * 1 = 6 ..  so on
-   Remarks
-    - There would be an overflow for long if n > 20
-    (Factorial for 21 will give you -> -4249290049419214848 which is incorrect)
-*/
 public class Factorial {
-    // Return n!
     public static long factorialUsingRecursion(long n) {
         if (n < 0) {
-            throw new RuntimeException("Underflow error in factorial");
+            throw new IllegalArgumentException("Underflow error in factorial");
         }
         else if (n > 20) {
-            throw new RuntimeException("Overflow error in factorial");
+            throw new IllegalArgumentException("Overflow error in factorial");
         }
         else if (n == 0) {
             return 1;
@@ -27,45 +20,38 @@ public class Factorial {
     }
 
     @Test
-    public void factorialForAnyNumTest() {
-        long num = 4;
-        long actual = factorialUsingRecursion(num);
+    public void factorialForAnyNumber() {
+        long actual = factorialUsingRecursion(4);
         long expected = 24;
         assertEquals(actual, expected);
-        System.out.println("factorialForAnyNumTest - passed");
     }
 
     @Test
-    public void factorialForZeroTest() {
-        long numZero = 0;
-        long actual = factorialUsingRecursion(numZero);
+    public void factorialForZero() {
+        long actual = factorialUsingRecursion(0);
         long expected = 1;
         assertEquals(actual, expected);
-        System.out.println("factorialForZeroTest - passed");
     }
 
     @Test
-    public void factorialForAnyNumLessThan0() {
-        long num = -10;
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            factorialUsingRecursion(num);
+    public void shouldThrowExceptionNumberLessThan20() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            factorialUsingRecursion(-10);
         });
         String expectedMessage = "Underflow error in factorial";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
-        System.out.println("factorialForAnyNumLessThan0 - passed");
     }
 
     @Test
-    public void factorialForAnyNumGreaterThan20() {
-        long num = 22;
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            factorialUsingRecursion(num);
+    public void shouldThrowExceptionNumberGreaterThan20() {
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            factorialUsingRecursion(22);
         });
         String expectedMessage = "Overflow error in factorial";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
-        System.out.println("factorialForAnyNumGreaterThan20 - passed");
     }
 
     public static void main(String[] args) {
